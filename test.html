@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Racing Game</title>
+    <style>
+      .player-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+
+      .player {
+        text-align: left;
+        margin-bottom: 20px;
+      }
+
+      .icon {
+        width: 150px;
+        height: 150px;
+        /* background-color: #3498db; */
+        border-radius: 50%;
+        margin-bottom: 10px;
+        position: relative;
+        transition: left 1s ease-in-out;
+        z-index: 2;
+      }
+
+      .finish-line {
+        width: 100px;
+        height: 100%;
+        background-image: url("img/dich.jpg");
+        position: absolute;
+        top: 0;
+        right: 740px; /* Cách 100px từ mỗi người chơi */
+        z-index: 1;
+        border: 1px solid black;
+        background-size: cover;
+      }
+      .race-track {
+        width: 1200px;
+        height: 200px;
+        background: linear-gradient(to bottom, #8b4513, #634a2f);
+        background-size: cover;
+        position: relative;
+      }
+      .score {
+        font-size: 30px;
+      }
+      .flex {
+        display: flex;
+      }
+      .win {
+        line-height: 4;
+      }
+      h1 {
+        text-align: center;
+        text-shadow: -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000,
+          2px 2px 2px #000;
+        color: #ffffff; /* Màu chữ trắng */
+        font-size: 50px;
+      }
+      h3 {
+        text-align: center;
+      }
+      body {
+        background-image: url("img/back.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-shadow: -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000,
+          2px 2px 2px #000;
+        color: #ffffff; /* Màu chữ trắng */
+      }
+      .winnerImageContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #winnerImageContainer {
+        margin-top: 15%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="who">
+      <h1 style="text-align: center">Who is the GOAT</h1>
+      <h3>Comment 10 for Messi, Comment 7 for Ronaldo</h3>
+
+      <div class="player-container">
+        <div class="player">
+          <p class="score">Messi</p>
+          <button onclick="spam(1,1)">Rose!</button>
+          <button onclick="spam(1,5)">Bing Chilling!</button>
+          <button onclick="spam(1,30)">Banh vong!</button>
+          <button onclick="spam(1,99)">hac giay!</button>
+          <button onclick="spam(1,199)">kinh dam!</button>
+          <button onclick="spam(1,499)">san ho!</button>
+          <button onclick="win(1,1)">mo vang!</button>
+          <button onclick="win(1,3)">mua sao bang!</button>
+          <button onclick="showWinnerImage(1)">goat!</button>
+          <div class="race-track">
+            <div class="icon" id="icon1">
+              <img width="300" style="margin-top: 10px" src="img/messi.png" />
+            </div>
+          </div>
+          <p class="score">Score: <span id="score1">0</span></p>
+        </div>
+
+        <div class="player">
+          <p class="score">Ronaldo</p>
+          <button onclick="spam(2,1)">Tiktok!</button>
+          <button onclick="spam(2,5)">bong dac biet!</button>
+          <button onclick="spam(2,30)">tra thai!</button>
+          <button onclick="spam(2,99)">mu luoi chai!</button>
+          <button onclick="spam(2,199)">cay dua!</button>
+          <button onclick="spam(2,499)">xe may!</button>
+          <button onclick="win(2,1)">dua hau bb!</button>
+          <button onclick="win(2,3)">vong du quay</button>
+          <button onclick="showWinnerImage(2)">goat!</button>
+          <div class="race-track">
+            <div class="icon" id="icon2">
+              <img width="300" style="margin-top: 25px" src="img/ronaldo.png" />
+            </div>
+          </div>
+          <p class="score">Score: <span id="score2">0</span></p>
+        </div>
+
+        <div class="finish-line"></div>
+      </div>
+      <div class="player-container score">
+        <div class="flex">
+          <img width="300" style="margin-top: 10px" src="img/messi.png" />
+          <p>Win: <span class="win" id="wins1">0</span></p>
+        </div>
+        <div class="flex">
+          <img width="300" style="margin-top: 25px" src="img/ronaldo.png" />
+          <p>Win: <span class="win" id="wins2">0</span></p>
+        </div>
+      </div>
+    </div>
+    <div id="winnerImageContainer" style="display: none">
+      <h1 id="winnerText">Winner!</h1>
+      <div class="winnerImageContainer">
+        <img id="winnerImage" alt="Winner Image" />
+      </div>
+    </div>
+
+    <script>
+      const scores = [0, 0, 0, 0];
+      const wins = [0, 0, 0, 0];
+      let positions = [0, 0, 0, 0];
+      const winningScore = 1000;
+
+      function showWinnerImage(player) {
+        const winnerImageContainer = document.getElementById(
+          "winnerImageContainer"
+        );
+        const winnerImage = document.getElementById("winnerImage");
+        const winnerText = document.getElementById("winnerText");
+        const bodyWho = document.getElementById("who");
+        bodyWho.style.display = "none";
+        //   const winningPlayer = getWinningPlayer();
+
+        // Set nguồn ảnh cho thẻ img
+        if (player == 1) {
+          winnerImage.src = `img/messi.png`;
+          winnerText.innerText = "Messi is the GOAT";
+        } else {
+          winnerImage.src = `img/ronaldo.png`;
+          winnerText.innerText = "Ronaldo is the GOAT";
+        }
+
+        // Hiển thị container và ảnh người vô địch
+        winnerImageContainer.style.display = "block";
+      }
+      function win(player, win) {
+        const winsElement = document.getElementById("wins" + player);
+        wins[player - 1] += win;
+        winsElement.innerText = wins[player - 1];
+      }
+      function spam(player, score) {
+        const icon = document.getElementById("icon" + player);
+        const scoreElement = document.getElementById("score" + player);
+        const winsElement = document.getElementById("wins" + player);
+
+        // Di chuyển biểu tượng cố định 10px sang phải mỗi lần spam
+        positions[player - 1] += score;
+        icon.style.left = positions[player - 1] + "px";
+
+        // Cập nhật điểm số và hiển thị
+        scores[player - 1] += score;
+        scoreElement.innerText = scores[player - 1];
+
+        // Kiểm tra nếu người chơi đạt 100 điểm, đánh dấu vô địch
+        if (scores[player - 1] >= winningScore) {
+          wins[player - 1]++;
+          winsElement.innerText = wins[player - 1];
+          alert(`Player ${player} vô địch!`);
+          resetAllIcons();
+        }
+      }
+      function resetAllIcons() {
+        for (let i = 1; i <= 4; i++) {
+          const icon = document.getElementById("icon" + i);
+          const scoreElement = document.getElementById("score" + i);
+
+          // Reset vị trí của biểu tượng
+          positions[i - 1] = 0;
+          icon.style.left = positions[i - 1] + "px";
+
+          // Reset điểm số của người chơi
+          scores[i - 1] = 0;
+          scoreElement.innerText = scores[i - 1];
+        }
+      }
+    </script>
+  </body>
+</html>

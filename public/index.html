@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok LIVE Chat Reader (Demo)</title>
+
+    <meta name="description" content="A chat reader for TikTok LIVE utilizing TikTok-Live-Connector and Socket.IO to forward the data to the client. This demo project uses the unofficial TikTok API to retrieve chat comments, gifts and other events from TikTok LIVE.">
+    <meta name="keywords" content="TikTok,Live,Livestream,Chat,Reader,Scraper,Tracker,tiktok.com,broadcast,api,library,node,node.js,javascript">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="connection.js"></script>
+    <script src="app.js"></script>
+    <script src="goat.js"></script>
+    <script>
+        function generateOverlay() {
+            let username = $('#uniqueIdInput').val();
+            let url = `/obs.html?username=${username}&showLikes=1&showChats=1&showGifts=1&showFollows=1&showJoins=1&bgColor=rgb(24,23,28)&fontColor=rgb(227,229,235)&fontSize=1.3em`;
+        
+            if(username) {
+                window.open(url, '_blank');
+            } else {
+                alert("Enter username");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="who">
+        <h1 style="text-align: center">Who is the GOAT</h1>
+        <h3>Comment 10 for Messi, Comment 7 for Ronaldo</h3>
+        <div class="player-container score">
+            <div class="flex">
+              <img width="300" height="170" style="margin-top: 10px" src="img/messi.png" />
+              <h1><span class="win" id="wins1">0</span></h1>
+              <h1><span class="win" style="margin: 0px 10px 0px 10px">-</span></h1>
+              <h1><span class="win" id="wins2">0</span></h1>
+              <img width="300" height="150" style="margin-top: 25px" src="img/ronaldo.png" />
+            </div>
+          </div>
+          <div class="icon-gift" style="text-align: center;">
+            
+            <h1 class="icon-gift">You are the GOAT <img src="img/lion.png" onclick="goldViewer(1)" /></h1>
+        </div>
+        <div class="player-container">
+          <div class="player">
+            <p class="score">Messi</p>
+            <div class="flex">
+            <div class="icon-gift">
+                <img src="img/rose.png" onclick="spam(1,1)" />
+                <p>1 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/ta.png" onclick="spam(1,1)" />
+                <p>1 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/hand.png" onclick="spam(1,5)" />
+                <p>5 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/hacgiay.png" onclick="spam(1,99)" />
+                <p>99 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/yeuban.webp" onclick="spam(1,199)" />
+                <p>199 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/sanho.png" onclick="spam(1,499)" />
+                <p>499 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/coin.png" onclick="win(1,1)" />
+                <p>1 win</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/phaohoa.webp" onclick="win(1,3)" />
+                <p>3 wins</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/leon.png" onclick="showWinnerImage(1)" />
+                <p>GOAT</p>
+            </div>
+            </div>
+            <!-- <button onclick="spam(1,5)">Bing Chilling!</button>
+            <button onclick="spam(1,30)">Banh vong!</button>
+            <button onclick="spam(1,99)">hac giay!</button>
+            <button onclick="spam(1,199)">kinh dam!</button>
+            <button onclick="spam(1,499)">san ho!</button>
+            <button onclick="win(1,1)">mo vang!</button>
+            <button onclick="win(1,3)">mua sao bang!</button>
+            <button onclick="showWinnerImage(1)">goat!</button> -->
+            <div class="race-track">
+              <div class="icon" id="icon1">
+                <img width="300" style="margin-top: 10px" src="img/messi.png" />
+              </div>
+            </div>
+            <p class="score">Score: <span id="score1">0</span></p>
+          </div>
+  
+          <div class="player">
+            <p class="score">Ronaldo</p>
+            <div class="flex">
+            <div class="icon-gift">
+                <img src="img/tiktok.png" onclick="spam(2,1)" />
+                <p>1 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/trungtim.webp" onclick="spam(2,1)" />
+                <p>1 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/hand.png" onclick="spam(2,5)" />
+                <p>5 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/mu.png" onclick="spam(2,99)" />
+                <p>99 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/kinhram.png" onclick="spam(1,199)" />
+                <p>199 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/gun.webp" onclick="spam(2,500)" />
+                <p>500 score</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/dauhau.webp" onclick="win(2,1)" />
+                <p>1 win</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/coop.webp" onclick="win(2,3)" />
+                <p>3 wins</p>
+            </div>
+            <div class="icon-gift">
+                <img src="img/chuyenco.png" onclick="showWinnerImage(2)" />
+                <p>GOAT</p>
+            </div>
+        </div>
+            <!-- <button onclick="spam(2,1)">Tiktok!</button>
+            <button onclick="spam(2,5)">bong dac biet!</button>
+            <button onclick="spam(2,30)">tra thai!</button>
+            <button onclick="spam(2,99)">mu luoi chai!</button>
+            <button onclick="spam(2,199)">cay dua!</button>
+            <button onclick="spam(2,499)">xe may!</button>
+            <button onclick="win(2,1)">dua hau bb!</button>
+            <button onclick="win(2,3)">vong du quay</button>
+            <button onclick="showWinnerImage(2)">goat!</button> -->
+            <div class="race-track">
+              <div class="icon" id="icon2">
+                <img width="300" style="margin-top: 25px" src="img/ronaldo.png" />
+              </div>
+            </div>
+            <p class="score">Score: <span id="score2">0</span></p>
+          </div>
+  
+          <div class="finish-line"></div>
+        </div>
+      </div>
+      <div id="winnerImageContainer" style="display: none">
+        <h1 id="winnerText">Winner!</h1>
+        <div class="winnerImageContainer">
+          <img id="winnerImage" alt="Winner Image" />
+        </div>
+      </div>
+    <div class="head">
+        <h1>TikTok LIVE Chat Reader</h1>   
+    </div>
+    <div class="inputFields">
+        <p>Enter the <b>@username</b> of a user who is currently live:</p>
+        <input type="text" id="uniqueIdInput">
+        <input type="button" id="connectButton" value="connect">
+        <a href="#" onclick="generateOverlay()">Generate Overlay URL</a>
+    </div>
+
+    <table class="splitstatetable">
+        <tr>
+            <td>
+                <pre id="stateText"></pre>
+            </td>
+            <td>
+                <div id="roomStats"></div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="splitchattable">
+        <tr>
+            <td>
+                <div class="chatcontainer">
+                    <h3 class="containerheader">Chats</h3>
+                </div>
+            </td>
+            <td>
+                <div class="giftcontainer">
+                    <h3 class="containerheader">Gifts</h3>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,169 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    min-width: 800px;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+a {
+    color: #58a6ff;
+}
+
+.head {
+    margin-bottom: 15px;
+    margin-top: 700px;
+}
+
+.subTitle {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.usernamelink {
+    color: #18508f;
+    text-decoration: none;
+}
+
+#roomUserText {
+    width: 100%;
+    text-align: right;
+}
+
+#roomStats {
+    width: 100%;
+    text-align: right;
+}
+
+#roomStats b {
+    margin-right: 20px;
+}
+
+.splitchattable, .splitstatetable {
+    width: 100%;
+}
+
+.splitstatetable td {
+    width: 50%;
+}
+
+.containerheader {
+    text-align: center;
+}
+
+.chatcontainer, .giftcontainer, .eventcontainer {
+    overflow-y: scroll;
+    height: calc(100vh - 240px);
+    word-wrap: break-word;
+}
+
+.eventcontainer {
+    height: calc(100vh - 90px);
+}
+
+.chatcontainer {
+    min-width: 400px;
+    max-width: calc(100vw - 430px);
+}
+
+.giftcontainer {
+    min-width: 400px;
+}
+
+.miniprofilepicture {
+    height: 20px;
+    width: 20px;
+}
+
+.gifticon {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .player {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    width: 150px;
+    height: 150px;
+    /* background-color: #3498db; */
+    border-radius: 50%;
+    margin-bottom: 10px;
+    position: relative;
+    transition: left 1s ease-in-out;
+    z-index: 2;
+  }
+
+  .finish-line {
+    width: 100px;
+    height: 100%;
+    background-image: url("img/dich.jpg");
+    position: absolute;
+    top: 0;
+    right: 740px; /* Cách 100px từ mỗi người chơi */
+    z-index: 1;
+    border: 1px solid black;
+    background-size: cover;
+  }
+  .race-track {
+    width: 1200px;
+    height: 200px;
+    background: linear-gradient(to bottom, #8b4513, #634a2f);
+    background-size: cover;
+    position: relative;
+  }
+  .score {
+    font-size: 30px;
+  }
+  .flex {
+    display: flex;
+  }
+  .win {
+    line-height: 4;
+  }
+  h1 {
+    text-align: center;
+    text-shadow: -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000,
+      2px 2px 2px #000;
+    color: #ffffff; /* Màu chữ trắng */
+    font-size: 50px;
+  }
+  h3 {
+    text-align: center;
+  }
+  body {
+    background-image: url("img/back.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-shadow: -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000,
+      2px 2px 2px #000;
+    color: #ffffff; /* Màu chữ trắng */
+  }
+  .winnerImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #winnerImageContainer {
+    margin-top: 15%;
+  }
+  .icon-gift > img {
+    width: 50px;
+    margin: 0 20px 0 20px
+  }
+  .icon-gift > p {
+    text-align: center;
+  }
